@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intro/models/question.dart';
 import 'package:intro/pages/widgets/question_column.dart';
-import 'package:intro/pages/widgets/result_text.dart';
+import 'package:intro/pages/widgets/questions_result.dart';
 
 class QuestionPage extends StatefulWidget {
   @override
@@ -32,6 +32,13 @@ class _QuestionPageState extends State<QuestionPage> {
     setState(() {});
   }
 
+  void _resetQuestions() {
+    _totalScore = 0;
+    _hasModeQuestions = true;
+    _currentIndex = 0;
+    setState(() { });
+  }
+
   @override
   Widget build(BuildContext context) {
     var selectedQuestion = _questions[_currentIndex];
@@ -44,7 +51,7 @@ class _QuestionPageState extends State<QuestionPage> {
       ),
       body: _hasModeQuestions
           ? QuestionColumn(selectedQuestion, _getNextQuestion)
-          : ResultText(_totalScore),
+          : QuestionsResult(_totalScore, _resetQuestions),
     );
   }
 }
