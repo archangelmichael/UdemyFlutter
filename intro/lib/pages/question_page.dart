@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intro/models/question.dart';
-import 'package:intro/pages/widgets/question_answer.dart';
-import 'package:intro/pages/widgets/question_title.dart';
+import 'package:intro/pages/widgets/question_column.dart';
 
 class QuestionPage extends StatefulWidget {
   @override
@@ -16,10 +15,12 @@ class _QuestionPageState extends State<QuestionPage> {
   ];
 
   var _currentIndex = 0;
+  var _hasModeQuestions = true;
 
   void _getNextQuestion() {
     var nextIndex = _currentIndex + 1;
     if (nextIndex >= _questions.length) {
+      _hasModeQuestions = false;
       nextIndex = 0;
     }
 
@@ -30,11 +31,6 @@ class _QuestionPageState extends State<QuestionPage> {
   @override
   Widget build(BuildContext context) {
     var selectedQuestion = _questions[_currentIndex];
-    var questionChildren = <Widget>[];
-    questionChildren.add(QuestionTitle(selectedQuestion.title));
-    for(var answer in selectedQuestion.answers) {
-      questionChildren.add(QuestionAnswer(answer, _getNextQuestion));
-    }
 
     return Scaffold(
       appBar: AppBar(
@@ -42,12 +38,11 @@ class _QuestionPageState extends State<QuestionPage> {
         // the App.build method, and use it to set our appbar title.
         title: Text("Questions Page"),
       ),
-      body: Column(
-        children: <Widget>[
-          QuestionTitle(selectedQuestion.title),
-          ...selectedQuestion.answers.map( (answer) { return QuestionAnswer(answer, _getNextQuestion); })
-        ],
-      ),
+      body: _hasModeQuestions
+          ? QuestionColumn(selectedQuestion, _getNextQuestion)
+          : Center(
+              child: Text("GAME OVER"),
+            ),
     );
   }
 }
