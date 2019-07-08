@@ -1,6 +1,12 @@
+import 'package:intro/models/answer.dart';
+
 class Question {
   String title;
-  List<String> answers = ["YES", "NO", "MAYBE"];
+  List<Answer> answers = [
+    Answer("YES", 10),
+    Answer("NO", 0),
+    Answer("MAYBE", 5)
+  ];
 
   Question(this.title);
 }

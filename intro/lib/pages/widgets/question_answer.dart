@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:intro/models/answer.dart';
+
+typedef void AnswerCallBack(int score);
 
 class QuestionAnswer extends StatelessWidget {
-  final String _answerText;
-  final VoidCallback _answerCallback;
+  final Answer _answer;
+  final AnswerCallBack _answerCallback;
 
-  QuestionAnswer(this._answerText, this._answerCallback);
+  QuestionAnswer(this._answer, this._answerCallback);
 
   @override
   Widget build(BuildContext context) {
@@ -13,8 +16,8 @@ class QuestionAnswer extends StatelessWidget {
       padding: EdgeInsets.all(10),
       child: RaisedButton(
         color: Colors.amber,
-        child: Text(_answerText),
-        onPressed: _answerCallback,
+        child: Text(_answer.title),
+        onPressed: () => _answerCallback(_answer.points),
       ),
     );
   }

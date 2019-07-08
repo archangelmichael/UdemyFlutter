@@ -16,8 +16,11 @@ class _QuestionPageState extends State<QuestionPage> {
 
   var _currentIndex = 0;
   var _hasModeQuestions = true;
+  var _totalScore = 0;
 
-  void _getNextQuestion() {
+  void _getNextQuestion(int score) {
+    _totalScore += score;
+
     var nextIndex = _currentIndex + 1;
     if (nextIndex >= _questions.length) {
       _hasModeQuestions = false;
@@ -41,7 +44,7 @@ class _QuestionPageState extends State<QuestionPage> {
       body: _hasModeQuestions
           ? QuestionColumn(selectedQuestion, _getNextQuestion)
           : Center(
-              child: Text("GAME OVER"),
+              child: Text("GAME OVER \n Your score is $_totalScore"),
             ),
     );
   }

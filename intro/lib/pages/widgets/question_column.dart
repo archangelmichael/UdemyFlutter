@@ -5,7 +5,7 @@ import 'package:intro/pages/widgets/question_title.dart';
 
 class QuestionColumn extends StatelessWidget {
   final Question _question;
-  final Function _callback;
+  final AnswerCallBack _callback;
 
   QuestionColumn(this._question, this._callback);
 
