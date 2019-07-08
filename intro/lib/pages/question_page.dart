@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intro/models/question.dart';
 import 'package:intro/pages/widgets/question_column.dart';
+import 'package:intro/pages/widgets/result_text.dart';
 
 class QuestionPage extends StatefulWidget {
   @override
@@ -43,9 +44,7 @@ class _QuestionPageState extends State<QuestionPage> {
       ),
       body: _hasModeQuestions
           ? QuestionColumn(selectedQuestion, _getNextQuestion)
-          : Center(
-              child: Text("GAME OVER \n Your score is $_totalScore"),
-            ),
+          : ResultText(_totalScore),
     );
   }
 }
