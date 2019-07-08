@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intro/pages/widgets/question_answer.dart';
 import 'package:intro/pages/widgets/question_title.dart';
 
 class QuestionPage extends StatefulWidget {
@@ -32,19 +33,8 @@ class _QuestionPageState extends State<QuestionPage> {
       body: Column(
         children: <Widget>[
           QuestionTitle(_questions[_currentIndex]),
-          RaisedButton(
-            child: Text("TRUE"),
-            onPressed: () {
-              print("OK");
-              _getNextQuestion();
-            },
-          ),
-          RaisedButton(
-            child: Text("FALSE"),
-            onPressed: () {
-              print("NOT OK");
-            },
-          )
+          QuestionAnswer("YES", _getNextQuestion),
+          QuestionAnswer("NO", _getNextQuestion),
         ],
       ),
     );
