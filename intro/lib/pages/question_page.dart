@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intro/models/question.dart';
 import 'package:intro/pages/widgets/question_answer.dart';
 import 'package:intro/pages/widgets/question_title.dart';
 
@@ -8,7 +9,11 @@ class QuestionPage extends StatefulWidget {
 }
 
 class _QuestionPageState extends State<QuestionPage> {
-  final List<String> _questions = ["WTF?", "HTF?", "WWTF?"];
+  final List<Question> _questions = [
+    Question("WTF?"),
+    Question("HTF?"),
+    Question("WWTF?"),
+  ];
 
   var _currentIndex = 0;
 
@@ -24,6 +29,13 @@ class _QuestionPageState extends State<QuestionPage> {
 
   @override
   Widget build(BuildContext context) {
+    var selectedQuestion = _questions[_currentIndex];
+    var questionChildren = <Widget>[];
+    questionChildren.add(QuestionTitle(selectedQuestion.title));
+    for(var answer in selectedQuestion.answers) {
+      questionChildren.add(QuestionAnswer(answer, _getNextQuestion));
+    }
+
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -32,9 +44,8 @@ class _QuestionPageState extends State<QuestionPage> {
       ),
       body: Column(
         children: <Widget>[
-          QuestionTitle(_questions[_currentIndex]),
-          QuestionAnswer("YES", _getNextQuestion),
-          QuestionAnswer("NO", _getNextQuestion),
+          QuestionTitle(selectedQuestion.title),
+          ...selectedQuestion.answers.map( (answer) { return QuestionAnswer(answer, _getNextQuestion); })
         ],
       ),
     );
